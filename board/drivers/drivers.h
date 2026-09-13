@@ -46,6 +46,7 @@ extern bool ignition_can;
 extern uint32_t ignition_can_cnt;
 
 extern bool can_silent;
+extern uint8_t can_silent_bus_mask;
 extern bool can_loopback;
 
 // ******************* functions prototypes *********************

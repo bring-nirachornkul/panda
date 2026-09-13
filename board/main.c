@@ -50,6 +50,7 @@ void set_safety_mode(uint16_t mode, uint16_t param) {
   }
   safety_tx_blocked = 0;
   safety_rx_invalid = 0;
+  can_silent_bus_mask = 0U;
 
   switch (mode_copy) {
     case SAFETY_SILENT:
@@ -83,6 +84,11 @@ void set_safety_mode(uint16_t mode, uint16_t param) {
       heartbeat_lost = false;
       current_board->set_can_mode(CAN_MODE_NORMAL);
       can_silent = false;
+      // The Atto 3 private radar bus is a read-only tap. Keep physical bus 1
+      // in FDCAN bus-monitoring mode so panda cannot ACK or disturb that link.
+      if ((mode_copy == SAFETY_BYD) && ((param & 0x10U) != 0U)) {
+        can_silent_bus_mask |= (1U << 1);
+      }
       break;
   }
   can_init_all();
