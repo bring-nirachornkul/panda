@@ -11,6 +11,7 @@ uint32_t rx_buffer_overflow = 0;
 can_health_t can_health[PANDA_CAN_CNT] = {{0}, {0}, {0}};
 
 bool can_silent = true;
+uint8_t can_silent_bus_mask = 0U;
 bool can_loopback = false;
 
 // ********************* instantiate queues *********************
